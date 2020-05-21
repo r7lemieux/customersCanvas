@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Customer's Canvas Quick Start Sample Page</title>
+  <!-- The IFrame API script. IMPORTANT! Do not remove or change the ID. -->
+  <script id="CcIframeApiScript" type="text/javascript" src="/cc/Resources/Generated/IframeApi.js">
+  </script>
+</head>
+
+<body>
+<!-- The iframe to display the editor in. -->
+<iframe id="editorFrame" width="100%" height="800px"></iframe>
+</body>
+
+<script>
+  // Initializing the product with only one template - "BusinessCard.psd".
+  productDefinition = { surfaces: ["BusinessCard"] };
+  // Getting the iframe element to display the editor in.
+  var iframe = document.getElementById("editorFrame");
+  var editor = null;
+  // Loading the editor.
+  CustomersCanvas.IframeApi.loadEditor(iframe, productDefinition)
+    // If the editor has been successfully loaded.
+    .then(function (e) {
+      editor = e;
+    })
+    // If there was an error thrown when loading the editor.
+    .catch(function (error) {
+      console.error("The editor failed to load with an exception: ", error);
+    });
+</script>
+
+</html>
+
+https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy/Resources/Generated/IframeApi.js
