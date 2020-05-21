@@ -1,3 +1,0 @@
-# customersCanvas
-Customers Canvas POC
-
