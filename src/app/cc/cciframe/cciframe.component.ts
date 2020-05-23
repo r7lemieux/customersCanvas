@@ -1,35 +1,28 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
-import { Product, Surface } from '@aurigma/design-atoms/Model/Product';
-import { Viewer } from '@aurigma/design-atoms/Viewer/Viewer';
 import { DOCUMENT } from '@angular/common';
 
-  interface Window {
-    CustomersCanvas?: any;
-  }
-
+interface Window {
+  CustomersCanvas?: any;
+}
 
 @Component({
   selector: 'app-cciframe',
   templateUrl: './cciframe.component.html',
   styleUrls: ['./cciframe.component.scss']
 })
-export class CciframeComponent  implements OnInit, AfterViewInit {
+export class CciframeComponent implements OnInit, AfterViewInit {
+  customersCanvasBaseUrl = 'https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy';
+  editor = null;
   productDefinition;
   scriptCreated;
 
   constructor( @Inject(DOCUMENT) private document: any,
   ) {
-    // (window as Window).CustomersCanvas = {
-    //   IframeApi: {
-    //     editorUrl: "http://localhost:4200/customerCanvasIframe"
-    //   }
-    // };
-    this.createScript();
   }
 
   ngOnInit() {
     this.productDefinition = {
-      //This safety line is applied to all surfaces of the product.
+      // This safety line is applied to all surfaces of the product.
       defaultSafetyLines: [{
         margin: 8.5,
         color: 'rgba(0,255,0,1)',
@@ -38,35 +31,44 @@ export class CciframeComponent  implements OnInit, AfterViewInit {
         widthPx: 1
       }],
       surfaces: [
-        //The first surface - a front side of the business card.
+        // The first surface - a front side of the business card.
         {
-          printAreas: [{ designFile: "BusinessCard2_side1" }]
+          printAreas: [{ designFile: 'samples/name-photo' }]
         },
-        //The second surface - a back side of the business card.
+        // The second surface - a back side of the business card.
         {
-          printAreas: [{ designFile: "BusinessCard2_side2" }]
+          printAreas: [{ designFile: 'samples/test-page' }]
         }]
     };
   }
 
-  ngAfterViewInit() {
-    //Getting the iframe element to display the editor in.
-    var iframe = document.getElementById("editorFrame");
-    //Loading the editor.
-    var config = { tokenId: "1f4b75ac-b0c2-46e5-88ed-d7f88c613250" };
-    var editor = null;
-    (window as Window).CustomersCanvas.IframeApi.loadEditor(iframe, this.productDefinition, config).then(function(e) {editor = e});
+  async ngAfterViewInit() {
+    await this.iframeApiReady();
+
+    // Getting the iframe element to display the editor in.
+    const iframe = document.getElementById('editorFrame');
+    // Loading the editor.
+    const config = {
+      initalMode: 'Advanced'
+     };
+    this.editor = await (window as Window).CustomersCanvas.IframeApi.loadEditor(iframe, this.productDefinition, config);
   }
 
-  createScript() {
-    (window as Window).customersCanvasReady = () => {
-      if (!this.scriptCreated) {
+  async iframeApiReady() {
+    return new Promise((resolve, reject) => {
+      if (this.document.getElementById('CcIframeApiScript')) {
+        resolve();
+      } else {
         const script = this.document.createElement('script');
         script.type = 'text/javascript';
-        script.src = `http://example.com/Resources/Generated/IframeApi.js`;
-        this.scriptCreated = true;
+        script.src = `${this.customersCanvasBaseUrl}/Resources/Generated/IframeApi.js`;
+        script.onload = resolve;
+        script.onerror = reject;
+        script.onabort = reject;
+        script.id = 'CcIframeApiScript';
         this.document.body.appendChild(script);
-        return;
       }
-    }
-  }}
+    });
+  }
+
+}
