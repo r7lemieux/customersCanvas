@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 interface Window {
@@ -10,11 +10,11 @@ interface Window {
   templateUrl: './cciframe.component.html',
   styleUrls: ['./cciframe.component.scss']
 })
+
 export class CciframeComponent implements OnInit, AfterViewInit {
   customersCanvasBaseUrl = 'https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy';
   editor = null;
   productDefinition;
-  scriptCreated;
 
   constructor( @Inject(DOCUMENT) private document: any,
   ) {
