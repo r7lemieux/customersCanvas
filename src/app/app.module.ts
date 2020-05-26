@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { CciframeComponent } from './cc/cciframe/cciframe.component';
 import { EmbeddedComponent } from './cc/embedded/embedded.component';
 
+import { DesignEditorIframeModule } from 'projects/design-editor-iframe/src/public-api';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +16,8 @@ import { EmbeddedComponent } from './cc/embedded/embedded.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DesignEditorIframeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
