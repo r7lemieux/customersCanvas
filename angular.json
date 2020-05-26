@@ -123,6 +123,46 @@
           }
         }
       }
+    },
+    "design-editor-iframe": {
+      "projectType": "library",
+      "root": "projects/design-editor-iframe",
+      "sourceRoot": "projects/design-editor-iframe/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/design-editor-iframe/tsconfig.lib.json",
+            "project": "projects/design-editor-iframe/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/design-editor-iframe/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/design-editor-iframe/src/test.ts",
+            "tsConfig": "projects/design-editor-iframe/tsconfig.spec.json",
+            "karmaConfig": "projects/design-editor-iframe/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/design-editor-iframe/tsconfig.lib.json",
+              "projects/design-editor-iframe/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "demo2"
 }
