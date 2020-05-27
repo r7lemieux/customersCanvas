@@ -1,9 +1,10 @@
 <h1>Customer Canvas Iframe</h1>
-<button [disabled]="!editor ? true : null" (click)="setName()">Set Name</button>
-<button [disabled]="!editor ? true : null" (click)="addElement()">Add Element</button>
-<button [disabled]="!editor ? true : null" (click)="deleteSelection()">Delete Selection</button>
+<button [disabled]="!editor" (click)="setName()">Set Name</button>
+<button [disabled]="!editor" (click)="addElement()">Add Element</button>
+<button [disabled]="!editor" (click)="deleteSelection()">Delete Selection</button>
+<button [disabled]="!editor" (click)="saveProduct()">Save Product</button>
 <div class="cc-container">
-    <lib-design-editor-iframe 
+    <lib-design-editor-iframe
         [url]="customersCanvasBaseUrl"
         (ready)="onIFrameReady($event)"
         (failed)="onError($event)"

@@ -10,6 +10,7 @@ import { RgbColor, CmykColor, ColorFactory } from '@aurigma/design-atoms/Colors'
 import { Viewer, IOptions } from '@aurigma/design-atoms/Viewer';
 import { Configuration } from '@aurigma/design-atoms/Configuration';
 import { SelectionHandler } from '@aurigma/design-atoms/SelectionHandler';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -23,7 +24,12 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
   @ViewChild('viewerParent') viewerParent: ElementRef;
 
-  constructor() { }
+  constructor(private productsService: ProductsService) {
+    const products = Object.values(this.productsService.products)
+    if (products.length) {
+      this.product = products[products.length - 1];
+    }
+  }
 
   private initProduct() {
 
@@ -74,7 +80,7 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.initProduct();
+    //this.initProduct();
   }
 
   ngAfterViewInit() {

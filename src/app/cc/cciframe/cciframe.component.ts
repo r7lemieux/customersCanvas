@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { DesignEditorIframeComponent, LoadEditorFunction } from 'projects/design-editor-iframe/src/public-api';
+import { ProductsService } from '../../services/products.service';
 
 interface Window {
   CustomersCanvas?: any;
@@ -20,6 +21,7 @@ export class CciframeComponent implements OnInit, AfterViewInit {
   @ViewChild(DesignEditorIframeComponent) private designEditorIFrame: DesignEditorIframeComponent;
 
   constructor(@Inject(DOCUMENT) private document: any,
+              private productService: ProductsService
   ) {
   }
 
@@ -128,5 +130,13 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     rect.fillColor = new Model.ColorFactory.createColor('#DAF7A6');
 
     product.currentSurface.insertItem(rect);
+  }
+
+  async saveProduct() {
+    if (!this.editor) { return; }
+    const Model = (window as any).CustomersCanvas.DesignAtoms.ObjectModel;
+    const product = await this.editor.getProduct();
+    this.productService.addProduct(product);
+
   }
 }
