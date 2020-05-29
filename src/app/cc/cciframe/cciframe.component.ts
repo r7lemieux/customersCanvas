@@ -1,7 +1,12 @@
 import { AfterViewInit, Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { DesignEditorIframeComponent, LoadEditorFunction } from 'projects/design-editor-iframe/src/public-api';
+import {
+  DesignEditorIframeComponent,
+  DesignEditorIframeService,
+  LoadEditorFunction
+} from 'projects/design-editor-iframe/src/public-api';
 import { ProductsService } from '../../services/products.service';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 interface Window {
   CustomersCanvas?: any;
@@ -15,14 +20,24 @@ interface Window {
 
 export class CciframeComponent implements OnInit, AfterViewInit {
   customersCanvasBaseUrl = 'https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy';
-  editor = null;
+  editor:  any;
   productDefinition;
+  projectForm: FormGroup;
+
+
 
   @ViewChild(DesignEditorIframeComponent) private designEditorIFrame: DesignEditorIframeComponent;
 
   constructor(@Inject(DOCUMENT) private document: any,
+              private fb: FormBuilder,
               private productService: ProductsService
   ) {
+    this.projectForm = this.fb.group({
+      projectName: [
+        null,
+        [Validators.required]
+      ]
+    });
   }
 
   ngOnInit() {
@@ -132,11 +147,22 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     product.currentSurface.insertItem(rect);
   }
 
+  get projectName(): AbstractControl {
+    return this.projectForm.get('projectName');
+  }
+
   async saveProduct() {
     if (!this.editor) { return; }
     const Model = (window as any).CustomersCanvas.DesignAtoms.ObjectModel;
-    const product = await this.editor.getProduct();
-    this.productService.addProduct(product);
+    // const product = await this.editor.getProduct();
+    // this.productService.addProduct(product);
+    // const result = await this.editor.saveProduct(this.projectName);
+    const saveOptions = {
+      fileName: this.projectName,
+      stateId: this.projectName
+    }
+    const saveResult = await this.editor.finishProductDesign(saveOptions);
+    console.log(`==> cciframe.component.ts:165 saveProduct saveResult `, saveResult);
 
   }
 }

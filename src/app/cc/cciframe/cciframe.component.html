@@ -1,4 +1,9 @@
 <h1>Customer Canvas Iframe</h1>
+<label for="projectName"></label>
+<input type="text"
+       id="projectName"
+       [maxLength]="40"
+       formControlName="projectName" />
 <button [disabled]="!editor" (click)="setName()">Set Name</button>
 <button [disabled]="!editor" (click)="addElement()">Add Element</button>
 <button [disabled]="!editor" (click)="deleteSelection()">Delete Selection</button>
