@@ -68,10 +68,10 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
     ellipse.fillColor = new RgbColor('rgb(255, 195, 0)');
 
     const image = new ImageItem();
-    image.sourceRectangle = new RectangleF(100, 400, 640, 480);
+    image.sourceRectangle = new RectangleF(10, 10, 800, 1024);
     // image.source = new ImageItem.ImageSource(null, 'https://placeimg.com/640/480/any');
     // image.source = new ImageItem.ImageSource(null, 'https://storage.googleapis.com/customerscanvas/form1.pdf');
-    image.source = new ImageItem.ImageSource(null, 'https://storage.googleapis.com/customerscanvas/customerCanvasDemo1.idml');
+    image.source = new ImageItem.ImageSource(null, 'https://storage.googleapis.com/customerscanvas/FedexCCdemo1.idml');
     // Add these items to the main container
     //
     // Note, the collections in Design Atoms are implemented via the linq package. It brings to JavaScript the
@@ -83,7 +83,7 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
     // Create a product based on the page we have created
     this.product = new Product([page]);
-    console.log(`==> embedded.component.ts:86 initProduct this.product `, this.product);
+    // console.log(`==> embedded.component.ts:86 initProduct this.product `, this.product);
 
   }
 
