@@ -11,11 +11,14 @@
   </div>
 </form>
 
-<button [disabled]="!editor" (click)="setName()">Set Name</button>
-<button [disabled]="!editor" (click)="addElement()">Add Element</button>
-<button [disabled]="!editor" (click)="deleteSelection()">Delete Selection</button>
+<button [disabled]="!editor ? true : null" (click)="createBlankDesign(360,720)">Create blank design</button>
+<button [disabled]="!editor ? true : null" (click)="populate()">Auto Populate - builtin IFrame API method</button>
+<button [disabled]="!editor ? true : null" (click)="populate2()">Auto Populate - through DA</button>
+<div>NOTE: Auto populate will fill the following fields - First name, Last name, Address, Avatar (placeholder)</div>
+<hr/>
 <button [disabled]="!editor" (click)="saveProduct()">Save Product</button>
-<div class="cc-container">
+<button [disabled]="!editor ? true : null" (click)="addElement()">Add Element</button>
+<button [disabled]="!editor ? true : null" (click)="deleteSelection()">Delete Selection</button><div class="cc-container">
   <lib-design-editor-iframe
     [url]="customersCanvasBaseUrl"
     (ready)="onIFrameReady($event)"
