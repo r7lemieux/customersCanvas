@@ -13,9 +13,54 @@ interface Window {
 })
 
 export class CciframeComponent implements OnInit, AfterViewInit {
+  profileData = {
+    'first name': 'Andrew',
+    'last name': 'Simontsev',
+    'address': '901 N Pitt St, Suite 325\nAlexandria VA, 22314',
+    'avatar': 'https://ru.gravatar.com/userimage/16369644/206e77c101a071dc0b192ce71c846d62.jpg?size=600'
+  };
+
+  loadEditor = null;
   customersCanvasBaseUrl = 'https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy';
   editor = null;
   productDefinition;
+  config = {
+    initialMode: 'Advanced',
+    canvas: {
+      shadowEnabled: true,
+      canvasItemHoverEnabled: true
+    },
+    violationWarningsSettings: {
+      safetyLineViolationWarningEnabled: false
+    },
+    widgets: {
+      Toolbox: {
+        buttons: [
+          {
+            translationKey: 'Toolbox.TEXT',
+            translationKeyTitle: 'Toolbox.TITLE_ADD_TEXT',
+            iconClass: 'cc-icon-add-text',
+            buttons: ['Text', 'BoundedText', 'RichText']
+          },
+          'Image',
+          {
+            translationKey: 'Placeholder',
+            translationKeyTitle: 'Add a placeholder',
+            iconClass: 'cc-icon-select-image-top-toolbar',
+            action: 'CustomPlaceholder'
+          },
+          'Background',
+          'QrCode'
+        ]
+      },
+      ObjectInspector: {
+        showItemName: true
+      },
+      ItemMenu: {
+        renameEnabled: true
+      }
+    }
+  };
 
   @ViewChild(DesignEditorIframeComponent) private designEditorIFrame: DesignEditorIframeComponent;
 
@@ -33,15 +78,9 @@ export class CciframeComponent implements OnInit, AfterViewInit {
         stepPx: 5,
         widthPx: 1
       }],
-      surfaces: [
-        // The first surface - a front side of the business card.
-        {
-          printAreas: [{ designFile: 'samples/name-photo' }]
-        },
-        // The second surface - a back side of the business card.
-        {
-          printAreas: [{ designFile: 'samples/test-page' }]
-        }]
+      surfaces: {
+        file: 'fedex/FedexSample2'
+      }
     };
   }
 
@@ -53,16 +92,33 @@ export class CciframeComponent implements OnInit, AfterViewInit {
   }
 
   async onIFrameReady(loadEditor: LoadEditorFunction) {
-    const config = {
-      initialMode: 'Advanced'
-    };
-    this.editor = await loadEditor(this.productDefinition, config);
+    this.loadEditor = loadEditor;
+    this.editor = await loadEditor(this.productDefinition, this.config);
+  }
+
+  async createBlankDesign(width: number, height: number) {
+    this.editor = await this.loadEditor({surfaces: [{width, height}]}, this.config);
+  }
+
+  /**
+   * A recommended way to populate a design with the custom content when you are using
+   * the IFrame API approach.
+   */
+  async populate() {
+    await this.editor.loadUserInfo(this.profileData);
   }
 
   // See for details:
   // https://customerscanvas.com/docs/cc/introduction-to-iframe-api-v5.htm
 
-  async setName() {
+  /**
+   * An alternative way to populate a design with a custom content - can be transferred to
+   * the embedded component.
+   */
+  async populate2() {
+
+    const Model = (window as any).CustomersCanvas.DesignAtoms.ObjectModel;
+
     if (!this.editor) { return; }
 
     const product = await this.editor.getProduct();
@@ -71,22 +127,20 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     model
       .getAllItems()
       .forEach(async (x) => {
-        switch (true) {
-          case x.name.toLowerCase() === 'first name':
-            x.text = 'Richard';
-            await product.setItem(x);
-            break;
-          case x.name.toLowerCase() === 'last name':
-            x.text = 'Lemieux';
-            await product.setItem(x);
-            break;
+        const value = this.profileData[x.name.toLowerCase()];
+        if (typeof value === 'string') {
+          switch (x.type) {
+            case 'PlaceholderItem':
+              x.content = new Model.ImageItem();
+              x.content.source = new Model.ImageItem.ImageSource(null, value);
+              break;
+            default:
+              x.text = value;
+              break;
+          }
+          await product.setItem(x);
         }
       });
-
-    // This is an easy way to set multiple changes to the editor, however, it would cause flickering of the editor.
-    // To avoid it, you can use `await product.setItem()` as in the switch/case above.
-    //
-    // await product.setProductModel(model);
   }
 
   async deleteSelection() {
