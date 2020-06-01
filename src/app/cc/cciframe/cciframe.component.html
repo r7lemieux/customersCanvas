@@ -1,16 +1,28 @@
 <h1>Customer Canvas Iframe</h1>
+
+<form [formGroup]="projectForm" class="entryField">
+  <div>
+    <label for="projectName">Project Name</label>
+    <input type="text"
+           id="projectName"
+           [maxLength]="40"
+           placeholder="Project Name"
+           formControlName="projectName"/>
+  </div>
+</form>
+
 <button [disabled]="!editor ? true : null" (click)="createBlankDesign(360,720)">Create blank design</button>
 <button [disabled]="!editor ? true : null" (click)="populate()">Auto Populate - builtin IFrame API method</button>
 <button [disabled]="!editor ? true : null" (click)="populate2()">Auto Populate - through DA</button>
 <div>NOTE: Auto populate will fill the following fields - First name, Last name, Address, Avatar (placeholder)</div>
 <hr/>
+<button [disabled]="!editor" (click)="saveProduct()">Save Product</button>
 <button [disabled]="!editor ? true : null" (click)="addElement()">Add Element</button>
-<button [disabled]="!editor ? true : null" (click)="deleteSelection()">Delete Selection</button>
-<div class="cc-container">
-    <lib-design-editor-iframe 
-        [url]="customersCanvasBaseUrl"
-        (ready)="onIFrameReady($event)"
-        (failed)="onError($event)"
-        >
-    </lib-design-editor-iframe>
+<button [disabled]="!editor ? true : null" (click)="deleteSelection()">Delete Selection</button><div class="cc-container">
+  <lib-design-editor-iframe
+    [url]="customersCanvasBaseUrl"
+    (ready)="onIFrameReady($event)"
+    (failed)="onError($event)"
+  >
+  </lib-design-editor-iframe>
 </div>

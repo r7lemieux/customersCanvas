@@ -10,6 +10,7 @@ import { RgbColor, CmykColor, ColorFactory } from '@aurigma/design-atoms/Colors'
 import { Viewer, IOptions } from '@aurigma/design-atoms/Viewer';
 import { Configuration } from '@aurigma/design-atoms/Configuration';
 import { SelectionHandler } from '@aurigma/design-atoms/SelectionHandler';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -23,7 +24,17 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
   @ViewChild('viewerParent') viewerParent: ElementRef;
 
-  constructor() { }
+  constructor(private productsService: ProductsService) {
+    // this.product = this.getIframeProduct();
+  }
+
+  private getIframeProduct(): Product {
+    const products = Object.values(this.productsService.products)
+    if (products.length) {
+      return products[products.length - 1];
+    }
+    return null;
+  }
 
   private initProduct() {
 
@@ -57,9 +68,10 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
     ellipse.fillColor = new RgbColor('rgb(255, 195, 0)');
 
     const image = new ImageItem();
-    image.sourceRectangle = new RectangleF(100, 400, 640, 480);
-    image.source = new ImageItem.ImageSource(null, 'https://placeimg.com/640/480/any');
-
+    image.sourceRectangle = new RectangleF(10, 10, 800, 1024);
+    // image.source = new ImageItem.ImageSource(null, 'https://placeimg.com/640/480/any');
+    // image.source = new ImageItem.ImageSource(null, 'https://storage.googleapis.com/customerscanvas/form1.pdf');
+    image.source = new ImageItem.ImageSource(null, 'https://storage.googleapis.com/customerscanvas/FedexCCdemo1.idml');
     // Add these items to the main container
     //
     // Note, the collections in Design Atoms are implemented via the linq package. It brings to JavaScript the
@@ -71,6 +83,8 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
     // Create a product based on the page we have created
     this.product = new Product([page]);
+    // console.log(`==> embedded.component.ts:86 initProduct this.product `, this.product);
+
   }
 
   ngOnInit() {
@@ -117,10 +131,12 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
     // Specify the surface you want to display. If you have a multi-page product,
     // you need to update this property when the user chooses another page.
     this.viewer.surface = this.product.surfaces.get(0);
-
+    const embeddedSurface = this.product.surfaces;
+    const iframeSurface = this.getIframeProduct().surfaces;
+    console.log(`==> embedded.component.ts:133 ngAfterViewInit embeddedSurface `, embeddedSurface);
+    console.log(`==> embedded.component.ts:134 ngAfterViewInit iframeSurface `, iframeSurface);
     // Make safety lines visible
     this.viewer.safetyLinesHandler.visible = true;
-
   }
 
 }
