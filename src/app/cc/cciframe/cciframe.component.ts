@@ -212,11 +212,11 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     // this.productService.addProduct(product);
     // const result = await this.editor.saveProduct(this.projectName);
     const saveOptions = {
-      fileName: this.projectName,
-      stateId: this.projectName
+      fileName: this.projectName.value,
+      stateId: this.projectName.value
     }
     const saveResult = await this.editor.finishProductDesign(saveOptions);
-    console.log(`==> cciframe.component.ts:165 saveProduct saveResult `, saveResult);
+    console.log(`==> cciframe.component.ts:219 saveProduct saveResult `, saveResult);
 
   }
 }
