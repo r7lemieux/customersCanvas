@@ -1,0 +1,19 @@
+<p>All designs</p>
+<div class="form-group">
+    <input type="file"
+           id="file"
+           (change)="handleFileInput($event.target.files)" title="File" />
+</div>
+<div #status></div>
+<div class="card-container">
+    <div *ngFor="let design of designs">
+        <div class="card">
+            <img class="thumb" src="{{getThumbnailByDesign(design)}}"/>
+            <span>{{design.title}}</span>
+            <div>
+                <button (click)="itemSelected(design)">Edit</button>
+                <button (click)="deleteSelected(design)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

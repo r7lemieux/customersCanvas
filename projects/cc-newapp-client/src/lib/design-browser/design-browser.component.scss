@@ -1,0 +1,15 @@
+.thumb {
+    width: 200px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: lightgrey;
+    margin: 8px;
+}

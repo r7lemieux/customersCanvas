@@ -19,6 +19,10 @@
       "design-editor-iframe": [
         "dist/design-editor-iframe/design-editor-iframe",
         "dist/design-editor-iframe"
+      ],
+      "cc-newapp-client": [
+        "dist/cc-newapp-client/cc-newapp-client",
+        "dist/cc-newapp-client"
       ]
     }
   }
