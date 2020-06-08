@@ -12,6 +12,10 @@ import { Configuration } from '@aurigma/design-atoms/Configuration';
 import { SelectionHandler } from '@aurigma/design-atoms/SelectionHandler';
 import { ProductsService } from '../../services/products.service';
 
+import {
+  DesignBrowserComponent
+} from 'projects/cc-newapp-client/src/public-api';
+
 
 @Component({
   selector: 'app-embedded',
@@ -21,11 +25,23 @@ import { ProductsService } from '../../services/products.service';
 export class EmbeddedComponent implements AfterViewInit, OnInit {
   product: Product;
   viewer: Viewer;
+  profileData = {
+    'first name': 'Andrew',
+    'last name': 'Simontsev',
+    'address': '901 N Pitt St, Suite 325\nAlexandria VA, 22314',
+    'avatar': 'https://ru.gravatar.com/userimage/16369644/206e77c101a071dc0b192ce71c846d62.jpg?size=600'
+  };
 
+  @ViewChild(DesignBrowserComponent) private browser: DesignBrowserComponent;
   @ViewChild('viewerParent') viewerParent: ElementRef;
 
   constructor(private productsService: ProductsService) {
     // this.product = this.getIframeProduct();
+  }
+
+  itemClicked(clickedDesign: Product) {
+    this.product = clickedDesign;
+    this.viewer.surface = this.product.surfaces[0];
   }
 
   private getIframeProduct(): Product {
@@ -34,6 +50,32 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
       return products[products.length - 1];
     }
     return null;
+  }
+
+  populate(data: any) {
+
+    // If you compare it with the populate() in cciframe.component, you will
+    // notice that it is almost completely copy-pasted from there. 
+    this.product
+      .getAllItems()
+      .forEach(async (x) => {
+        const value = data[x.name.toLowerCase()];
+        if (typeof value === 'string') {
+          switch (x.type) {
+            case 'PlaceholderItem':
+              const placeholder = x as PlaceholderItem;
+              const content = new ImageItem();
+              content.source = new ImageItem.ImageSource(null, value);
+              placeholder.content = content;
+              break;
+            default:
+              const text = x as BaseTextItem;
+              text.text = value;
+              break;
+          }
+        }
+      });
+
   }
 
   private initProduct() {
@@ -57,21 +99,24 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
     // Create an image placeholder.
     const placeholder = new PlaceholderItem(new RectangleF(100, 100, 200, 200));
-    placeholder.name = 'photo';
+    placeholder.name = 'avatar';
 
     // Create a text item to the main container.
-    const nameItem = new PlainTextItem('Cristopher Bennett', new PointF(400, 100), 'Roboto-Bold', 25);
-    nameItem.locked = false;
-    nameItem.name = 'employee';
+    const firstNameItem = new PlainTextItem('Cristopher', new PointF(400, 100), 'Roboto-Bold', 25);
+    firstNameItem.locked = false;
+    firstNameItem.name = 'First name';
+    const lastNameItem = new PlainTextItem('Bennett', new PointF(400, 140), 'Roboto-Bold', 25);
+    lastNameItem.locked = false;
+    lastNameItem.name = 'Last name';
 
     const ellipse = new EllipseItem(new RectangleF(400, 200, 300, 200));
     ellipse.fillColor = new RgbColor('rgb(255, 195, 0)');
 
     const image = new ImageItem();
     image.sourceRectangle = new RectangleF(10, 10, 800, 1024);
-    // image.source = new ImageItem.ImageSource(null, 'https://placeimg.com/640/480/any');
+    image.source = new ImageItem.ImageSource(null, 'https://placeimg.com/640/480/any');
     // image.source = new ImageItem.ImageSource(null, 'https://storage.googleapis.com/customerscanvas/form1.pdf');
-    image.source = new ImageItem.ImageSource(null, 'https://storage.googleapis.com/customerscanvas/FedexCCdemo1.idml');
+
     // Add these items to the main container
     //
     // Note, the collections in Design Atoms are implemented via the linq package. It brings to JavaScript the
@@ -79,7 +124,7 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
     page.containers
       .first(x => x.name === Configuration.MAIN_CONTAINER_NAME)
       .items
-      .setRange([placeholder, image, nameItem, ellipse]);
+      .setRange([placeholder, image, firstNameItem, lastNameItem, ellipse]);
 
     // Create a product based on the page we have created
     this.product = new Product([page]);
@@ -131,10 +176,10 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
     // Specify the surface you want to display. If you have a multi-page product,
     // you need to update this property when the user chooses another page.
     this.viewer.surface = this.product.surfaces.get(0);
-    const embeddedSurface = this.product.surfaces;
-    const iframeSurface = this.getIframeProduct().surfaces;
-    console.log(`==> embedded.component.ts:133 ngAfterViewInit embeddedSurface `, embeddedSurface);
-    console.log(`==> embedded.component.ts:134 ngAfterViewInit iframeSurface `, iframeSurface);
+    // const embeddedSurface = this.product.surfaces;
+    // const iframeSurface = this.getIframeProduct().surfaces;
+    // console.log(`==> embedded.component.ts:133 ngAfterViewInit embeddedSurface `, embeddedSurface);
+    // console.log(`==> embedded.component.ts:134 ngAfterViewInit iframeSurface `, iframeSurface);
     // Make safety lines visible
     this.viewer.safetyLinesHandler.visible = true;
   }

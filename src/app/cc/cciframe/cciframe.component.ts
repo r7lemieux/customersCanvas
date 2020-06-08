@@ -214,7 +214,7 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     const saveOptions = {
       fileName: this.projectName.value,
       stateId: this.projectName.value
-    }
+    };
     const saveResult = await this.editor.finishProductDesign(saveOptions);
     console.log(`==> cciframe.component.ts:219 saveProduct saveResult `, saveResult);
 
