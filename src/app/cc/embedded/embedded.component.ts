@@ -41,7 +41,7 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
   itemClicked(clickedDesign: Product) {
     this.product = clickedDesign;
-    this.viewer.surface = this.product.surfaces[0];
+    this.viewer.surface = this.product.surfaces.get(0);
   }
 
   private getIframeProduct(): Product {
@@ -148,7 +148,7 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
         in a real-life usage, most likely you will want to create a simpler backend app using the Aurigma.DesignAtoms
         Nuget package (ASP.NET). We can help you with this part.
       */
-      backendUrl: 'https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy',
+      backendUrl: 'https://fedex-poc-ccbackend.azurewebsites.net/api/atoms/v1/units/42',
       holderElement: this.viewerParent.nativeElement,
       rulerEnabled: true,
       canvasBackground: { color: 'white' }
