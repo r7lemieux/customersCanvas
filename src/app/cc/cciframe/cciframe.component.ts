@@ -2,11 +2,15 @@ import { AfterViewInit, Component, OnInit, Inject, ViewChild } from '@angular/co
 import { DOCUMENT } from '@angular/common';
 import {
   DesignEditorIframeComponent,
-  DesignEditorIframeService,
   LoadEditorFunction
 } from 'projects/design-editor-iframe/src/public-api';
 import { ProductsService } from '../../services/products.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Editor } from '@aurigma/design-editor-iframe/Editor';
+import { DesignEditorComponent } from 'projects/design-editor-iframe/src/lib/design-editor/design-editor.component';
+import { ImageItem, PlaceholderItem, BaseTextItem, RectangleItem } from '@aurigma/design-atoms/Model/Product/Items';
+import { RectangleF } from '@aurigma/design-atoms/Math';
+import { ColorFactory } from '@aurigma/design-atoms/Colors';
 
 interface Window {
   CustomersCanvas?: any;
@@ -18,7 +22,7 @@ interface Window {
   styleUrls: ['./cciframe.component.scss']
 })
 
-export class CciframeComponent implements OnInit, AfterViewInit {
+export class CciframeComponent {
   profileData = {
     'first name': 'Andrew',
     'last name': 'Simontsev',
@@ -26,52 +30,10 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     'avatar': 'https://ru.gravatar.com/userimage/16369644/206e77c101a071dc0b192ce71c846d62.jpg?size=600'
   };
 
-  loadEditor = null;
   customersCanvasBaseUrl = 'https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy';
-  editor: any;
-  productDefinition;
-  config = {
-    initialMode: 'Advanced',
-    canvas: {
-      shadowEnabled: true,
-      canvasItemHoverEnabled: true
-    },
-    violationWarningsSettings: {
-      safetyLineViolationWarningEnabled: false
-    },
-    widgets: {
-      Toolbox: {
-        buttons: [
-          {
-            translationKey: 'Toolbox.TEXT',
-            translationKeyTitle: 'Toolbox.TITLE_ADD_TEXT',
-            iconClass: 'cc-icon-add-text',
-            buttons: ['Text', 'BoundedText', 'RichText']
-          },
-          'Image',
-          {
-            translationKey: 'Placeholder',
-            translationKeyTitle: 'Add a placeholder',
-            iconClass: 'cc-icon-select-image-top-toolbar',
-            action: 'CustomPlaceholder'
-          },
-          'Background',
-          'QrCode'
-        ]
-      },
-      ObjectInspector: {
-        showItemName: true
-      },
-      ItemMenu: {
-        renameEnabled: true
-      }
-    }
-  };
   projectForm: FormGroup;
-
-
-
-  @ViewChild(DesignEditorIframeComponent) private designEditorIFrame: DesignEditorIframeComponent;
+  
+  @ViewChild(DesignEditorComponent) designEditor: DesignEditorComponent;
 
   constructor(@Inject(DOCUMENT) private document: any,
               private fb: FormBuilder,
@@ -85,36 +47,8 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() {
-    this.productDefinition = {
-      // This safety line is applied to all surfaces of the product.
-      defaultSafetyLines: [{
-        margin: 8.5,
-        color: 'rgba(0,255,0,1)',
-        altColor: 'rgba(255,255,255,0)',
-        stepPx: 5,
-        widthPx: 1
-      }],
-      surfaces: {
-        file: 'fedex/FedexSample2'
-      }
-    };
-  }
-
-  ngAfterViewInit() {
-  }
-
-  onError(msg: string) {
-    throw new Error(`Customer's Canvas IFrame API failed with this message:\n${msg}`);
-  }
-
-  async onIFrameReady(loadEditor: LoadEditorFunction) {
-    this.loadEditor = loadEditor;
-    this.editor = await loadEditor(this.productDefinition, this.config);
-  }
-
   async createBlankDesign(width: number, height: number) {
-    this.editor = await this.loadEditor({surfaces: [{width, height}]}, this.config);
+    this.designEditor.reload({surfaces: [{width, height}]});
   }
 
   /**
@@ -122,7 +56,7 @@ export class CciframeComponent implements OnInit, AfterViewInit {
    * the IFrame API approach.
    */
   async populate() {
-    await this.editor.loadUserInfo(this.profileData);
+    await this.designEditor.cc.loadUserInfo(this.profileData);
   }
 
   // See for details:
@@ -134,11 +68,9 @@ export class CciframeComponent implements OnInit, AfterViewInit {
    */
   async populate2() {
 
-    const Model = (window as any).CustomersCanvas.DesignAtoms.ObjectModel;
+    if (!this.designEditor.cc) { return; }
 
-    if (!this.editor) { return; }
-
-    const product = await this.editor.getProduct();
+    const product = await this.designEditor.cc.getProduct();
     const model = await product.getProductModel();
 
     model
@@ -148,11 +80,14 @@ export class CciframeComponent implements OnInit, AfterViewInit {
         if (typeof value === 'string') {
           switch (x.type) {
             case 'PlaceholderItem':
-              x.content = new Model.ImageItem();
-              x.content.source = new Model.ImageItem.ImageSource(null, value);
+              const img = new ImageItem();
+              img.source = new ImageItem.ImageSource(null, value);
+              ((x as unknown) as PlaceholderItem).content = img;
               break;
             default:
-              x.text = value;
+              if (x instanceof BaseTextItem) {
+                (x as BaseTextItem).text = value;
+              }
               break;
           }
           await product.setItem(x);
@@ -161,12 +96,12 @@ export class CciframeComponent implements OnInit, AfterViewInit {
   }
 
   async deleteSelection() {
-    if (!this.editor) { return; }
+    if (!this.designEditor.cc) { return; }
 
-    const selection = (await this.editor.getSelectedItems())
+    const selection = (await this.designEditor.cc.getSelectedItems())
       .map(x => x.name);
 
-    const product = await this.editor.getProduct();
+    const product = await this.designEditor.cc.getProduct();
     const model = await product.getProductModel();
 
     const currentPageMainContainer = model
@@ -183,30 +118,9 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     await product.setProductModel(model);
   }
 
-  async addElement() {
-    if (!this.editor) { return; }
-
-    // Until we add IFrame API as an npm package, you have to use
-    // a namespace from IFrameApi.js instead of imported Design Atoms.
-    const Model = (window as any).CustomersCanvas.DesignAtoms.ObjectModel;
-
-    // See for details:
-    // https://customerscanvas.com/docs/cc/introduction-to-iframe-api-v5.htm
-    const product = await this.editor.getProduct();
-
-    const rect = new Model.RectangleItem(new Model.RectangleF(50, 50, 100, 150));
-    rect.name = `Item ${Math.random().toString(36).substr(2, 5)}`;
-    rect.fillColor = new Model.ColorFactory.createColor('#DAF7A6');
-
-    product.currentSurface.insertItem(rect);
-  }
-
-  get projectName(): AbstractControl {
-    return this.projectForm.get('projectName');
-  }
-
+  /*
   async saveProduct() {
-    if (!this.editor) { return; }
+    if (!this.designEditor.cc) { return; }
     const Model = (window as any).CustomersCanvas.DesignAtoms.ObjectModel;
     // const product = await this.editor.getProduct();
     // this.productService.addProduct(product);
@@ -214,9 +128,9 @@ export class CciframeComponent implements OnInit, AfterViewInit {
     const saveOptions = {
       fileName: this.projectName.value,
       stateId: this.projectName.value
-    }
-    const saveResult = await this.editor.finishProductDesign(saveOptions);
+    };
+    const saveResult = await this.designEditor.cc.finishProductDesign(saveOptions);
     console.log(`==> cciframe.component.ts:219 saveProduct saveResult `, saveResult);
 
-  }
+  }*/
 }

@@ -8,6 +8,7 @@ import { EmbeddedComponent } from './cc/embedded/embedded.component';
 
 import { DesignEditorIframeModule } from 'projects/design-editor-iframe/src/public-api';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CcNewappClientModule } from 'projects/cc-newapp-client/src/public-api';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
-    DesignEditorIframeModule
+    DesignEditorIframeModule,
+    CcNewappClientModule
   ],
   providers: [EmbeddedComponent, CciframeComponent],
   bootstrap: [AppComponent]

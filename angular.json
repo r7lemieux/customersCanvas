@@ -163,6 +163,46 @@
           }
         }
       }
+    },
+    "cc-newapp-client": {
+      "projectType": "library",
+      "root": "projects/cc-newapp-client",
+      "sourceRoot": "projects/cc-newapp-client/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/cc-newapp-client/tsconfig.lib.json",
+            "project": "projects/cc-newapp-client/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cc-newapp-client/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/cc-newapp-client/src/test.ts",
+            "tsConfig": "projects/cc-newapp-client/tsconfig.spec.json",
+            "karmaConfig": "projects/cc-newapp-client/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/cc-newapp-client/tsconfig.lib.json",
+              "projects/cc-newapp-client/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "demo2"
 }

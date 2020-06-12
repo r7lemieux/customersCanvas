@@ -1,4 +1,6 @@
 <h1>Customer Canvas Embedded</h1>
+<lib-design-browser (itemClicked)="itemClicked($event)"></lib-design-browser>
+<button (click)="populate(this.profileData)">Populate</button>
 <div class="wrapper">
     <div #viewerParent class="viewer-parent"></div>
 </div>
