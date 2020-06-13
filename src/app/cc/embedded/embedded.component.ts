@@ -2,19 +2,22 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angula
 import { Product, Surface, SafetyLine, PdfBox } from '@aurigma/design-atoms/Model/Product';
 import { SurfaceContainer } from '@aurigma/design-atoms/Model/Product';
 import { PrintArea } from '@aurigma/design-atoms/Model/Product';
-import { ImageItem, PlaceholderItem, PlainTextItem, BaseTextItem, EllipseItem } from '@aurigma/design-atoms/Model/Product/Items';
+import { ImageItem, PlaceholderItem, PlainTextItem, BaseTextItem, EllipseItem, BaseItem, BoundedTextItem, Item, RectangleItem } from '@aurigma/design-atoms/Model/Product/Items';
 import { PointF } from '@aurigma/design-atoms/Math';
-import { MockupContainer } from '@aurigma/design-atoms/Model/Product';
 import { RectangleF } from '@aurigma/design-atoms/Math';
 import { RgbColor, CmykColor, ColorFactory } from '@aurigma/design-atoms/Colors';
 import { Viewer, IOptions } from '@aurigma/design-atoms/Viewer';
 import { Configuration } from '@aurigma/design-atoms/Configuration';
-import { SelectionHandler } from '@aurigma/design-atoms/SelectionHandler';
 import { ProductsService } from '../../services/products.service';
+import { assignProperties } from '@aurigma/design-atoms/Utils/Utils';
 
 import {
   DesignBrowserComponent
 } from 'projects/cc-newapp-client/src/public-api';
+import { DesignBrowserService } from 'projects/cc-newapp-client/src/lib/design-browser/design-browser.service';
+import { CreateItemCommand, ICreateItemCommandArgs } from '@aurigma/design-atoms/Commands/ItemsCommands/CreateItemCommand';
+import { ItemsCommand } from '@aurigma/design-atoms/Commands/CommandManager';
+import { Transform } from '@aurigma/design-atoms/Transform';
 
 
 @Component({
@@ -24,6 +27,7 @@ import {
 })
 export class EmbeddedComponent implements AfterViewInit, OnInit {
   product: Product;
+  currentDesignId: string;
   viewer: Viewer;
   profileData = {
     'first name': 'Andrew',
@@ -35,13 +39,16 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
   @ViewChild(DesignBrowserComponent) private browser: DesignBrowserComponent;
   @ViewChild('viewerParent') viewerParent: ElementRef;
 
-  constructor(private productsService: ProductsService) {
+  constructor(private productsService: ProductsService, private designService: DesignBrowserService) {
     // this.product = this.getIframeProduct();
   }
 
-  itemClicked(clickedDesign: Product) {
-    this.product = clickedDesign;
+  async itemClicked(clickedDesignId: string) {
+    this.currentDesignId = clickedDesignId;
+    this.product = await this.browser.designService.getDesignModel(this.currentDesignId);
     this.viewer.surface = this.product.surfaces.get(0);
+
+    console.log(this.viewer.surface.getAllItems().toArray());
   }
 
   private getIframeProduct(): Product {
@@ -50,6 +57,11 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
       return products[products.length - 1];
     }
     return null;
+  }
+
+  async save() {
+    await this.browser.designService.putDesignModel(this.currentDesignId, this.product);
+    await this.browser.refresh();
   }
 
   populate(data: any) {
