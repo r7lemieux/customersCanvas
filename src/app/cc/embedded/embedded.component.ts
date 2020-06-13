@@ -90,6 +90,36 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
   }
 
+  buildAtom(type: string, position: {x: number, y: number}, props: any) {
+    let atom: RectangleItem = null;
+    switch(type) {
+      case 'PlainTextItem':
+        atom = assignProperties(new PlainTextItem(), props);
+        break;
+      case 'BoundedTextItem':
+        atom = assignProperties(new BoundedTextItem(), props);
+        break;
+      case 'PlaceholderItem':
+        atom = assignProperties(new PlaceholderItem(new RectangleF(0, 0, 300, 300)), props);
+        break;
+      default:
+        throw new Error(`Cannot create an item of type ${type}. It is not supported yet.`);
+    }
+
+    atom.setTransform(new Transform(1, 1, position.x, position.y, 0));
+    return atom;
+  }
+
+  add(item: BaseItem) {
+    this
+      .viewer
+      .surface
+      .containers
+      .first(x => x.name === Configuration.MAIN_CONTAINER_NAME)
+      .items
+      .add(item);
+  }
+
   private initProduct() {
 
     const width = 800;

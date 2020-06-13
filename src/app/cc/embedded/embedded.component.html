@@ -1,6 +1,32 @@
 <h1>Customer Canvas Embedded</h1>
 <lib-design-browser (itemClicked)="itemClicked($event)"></lib-design-browser>
 <button (click)="populate(this.profileData)">Populate</button>
+<button (click)="add(buildAtom('PlainTextItem', {x: 100, y: 50}, {
+    text: 'Leo',
+    name: 'First name',
+    font: {
+        size: 32
+    }
+}))">Add First name</button>
+<button (click)="add(buildAtom('PlainTextItem', {x: 250, y: 50}, {
+    text: 'Tolstoy',
+    name: 'Last name',
+    font: {
+        size: 32
+    }
+}))">Add Last name</button>
+<button (click)="add(buildAtom('PlainTextItem', {x: 100, y: 150}, {
+    text: 'Yasnaya Polyana,\nTula Governorate,\nRussian Empire',
+    name: 'Address',
+    font: {
+        size: 24
+    }
+}))">Add Address</button>
+<button (click)="add(buildAtom('PlaceholderItem', {x: 100, y: 250}, {
+    name: 'Avatar',
+    borderWidth: 2
+}))">Add Avatar</button>
+<!-- button (click)="save()">Save</button -->
 <div class="wrapper">
     <div #viewerParent class="viewer-parent"></div>
 </div>
