@@ -32,7 +32,7 @@ export class CciframeComponent {
 
   customersCanvasBaseUrl = 'https://h.customerscanvas.com/Users/1f4b75ac-b0c2-46e5-88ed-d7f88c613250/SimplePolygraphy';
   projectForm: FormGroup;
-  
+
   @ViewChild(DesignEditorComponent) designEditor: DesignEditorComponent;
 
   constructor(@Inject(DOCUMENT) private document: any,
@@ -82,12 +82,10 @@ export class CciframeComponent {
             case 'PlaceholderItem':
               const img = new ImageItem();
               img.source = new ImageItem.ImageSource(null, value);
-              ((x as unknown) as PlaceholderItem).content = img;
+              (x as PlaceholderItem).content = img;
               break;
             default:
-              if (x instanceof BaseTextItem) {
-                (x as BaseTextItem).text = value;
-              }
+              (x as BaseTextItem).text = value;
               break;
           }
           await product.setItem(x);
