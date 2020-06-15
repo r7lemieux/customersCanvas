@@ -15,9 +15,10 @@ import {
   DesignBrowserComponent
 } from 'projects/cc-newapp-client/src/public-api';
 import { DesignBrowserService } from 'projects/cc-newapp-client/src/lib/design-browser/design-browser.service';
-import { CreateItemCommand, ICreateItemCommandArgs } from '@aurigma/design-atoms/Commands/ItemsCommands/CreateItemCommand';
+import { CreateItemCommand, ICreateItemCommandArgs, ItemType } from '@aurigma/design-atoms/Commands/ItemsCommands/CreateItemCommand';
 import { ItemsCommand } from '@aurigma/design-atoms/Commands/CommandManager';
 import { Transform } from '@aurigma/design-atoms/Transform';
+import { HistoryUpdateMode } from '@aurigma/design-atoms/Commands/ModelUpdateCommand';
 
 
 @Component({
@@ -26,6 +27,7 @@ import { Transform } from '@aurigma/design-atoms/Transform';
   styleUrls: ['./embedded.component.scss']
 })
 export class EmbeddedComponent implements AfterViewInit, OnInit {
+  ItemType: typeof ItemType = ItemType;
   product: Product;
   currentDesignId: string;
   viewer: Viewer;
@@ -52,7 +54,7 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
   }
 
   private getIframeProduct(): Product {
-    const products = Object.values(this.productsService.products)
+    const products = Object.values(this.productsService.products);
     if (products.length) {
       return products[products.length - 1];
     }
@@ -67,7 +69,7 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
   populate(data: any) {
 
     // If you compare it with the populate() in cciframe.component, you will
-    // notice that it is almost completely copy-pasted from there. 
+    // notice that it is almost completely copy-pasted from there.
     this.product
       .getAllItems()
       .forEach(async (x) => {
@@ -90,27 +92,12 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
 
   }
 
-  buildAtom(type: string, position: {x: number, y: number}, props: any) {
-    let atom: RectangleItem = null;
-    switch(type) {
-      case 'PlainTextItem':
-        atom = assignProperties(new PlainTextItem(), props);
-        break;
-      case 'BoundedTextItem':
-        atom = assignProperties(new BoundedTextItem(), props);
-        break;
-      case 'PlaceholderItem':
-        atom = assignProperties(new PlaceholderItem(new RectangleF(0, 0, 300, 300)), props);
-        break;
-      default:
-        throw new Error(`Cannot create an item of type ${type}. It is not supported yet.`);
-    }
-
-    atom.setTransform(new Transform(1, 1, position.x, position.y, 0));
-    return atom;
+  private async buildAtom(props: ICreateItemCommandArgs): Promise<Item> {
+    return this.viewer.commandManager.execute(ItemsCommand.createItem, props, HistoryUpdateMode.Update);
   }
 
-  add(item: BaseItem) {
+  async add(props: ICreateItemCommandArgs) {
+    const item = await this.buildAtom(props);
     this
       .viewer
       .surface

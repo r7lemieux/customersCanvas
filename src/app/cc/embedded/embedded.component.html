@@ -1,31 +1,90 @@
 <h1>Customer Canvas Embedded</h1>
 <lib-design-browser (itemClicked)="itemClicked($event)"></lib-design-browser>
 <button (click)="populate(this.profileData)">Populate</button>
-<button (click)="add(buildAtom('PlainTextItem', {x: 100, y: 50}, {
-    text: 'Leo',
-    name: 'First name',
-    font: {
-        size: 32
+<button (click)="add({ 
+    type: ItemType.PlainTextItem, 
+    itemData: {
+        text: 'Leo',
+        name: 'First name',
+        location: {
+            x: 100, 
+            y: 50,
+            originX: 'left',
+            originY: 'top'
+        },
+        color: 'cmyk(75%,25%,5%,0%)',
+        font: {
+            postScriptName: 'Montserrat-Bold',
+            size: 32
+        }
     }
-}))">Add First name</button>
-<button (click)="add(buildAtom('PlainTextItem', {x: 250, y: 50}, {
-    text: 'Tolstoy',
-    name: 'Last name',
-    font: {
-        size: 32
+})">Add First name</button>
+<!-- 
+    So far the following fonts are installed: 
+    ArialMT
+    Montserrat-Bold
+    Montserrat-Regular
+    Montserrat-SemiBold
+    OpenSans
+    Roboto-Bold
+-->
+<button (click)="add({
+    type: ItemType.PlainTextItem, 
+    itemData: {
+        text: 'Tolstoy',
+        name: 'Last name',
+        color: 'rgba(192,0,64,0.75)',
+        location: {
+            x: 250, 
+            y: 50,
+            originX: 'left',
+            originY: 'top'
+        },
+        font: {
+            postScriptName: 'Montserrat-SemiBold',
+            size: 32
+        }
     }
-}))">Add Last name</button>
-<button (click)="add(buildAtom('PlainTextItem', {x: 100, y: 150}, {
-    text: 'Yasnaya Polyana,\nTula Governorate,\nRussian Empire',
-    name: 'Address',
-    font: {
-        size: 24
+})">Add Last name</button>
+<button (click)="add({
+    type: ItemType.BoundedTextItem, 
+    itemData: {
+        text: 'Yasnaya Polyana,\nTula Governorate,\nRussian Empire',
+        name: 'Address',
+        width: 250,
+        height: 100,
+        overflowStrategy: 'fitToWidth',
+        location: {
+            x: 100, 
+            y: 150,
+            originX: 'left',
+            originY: 'top'
+        },
+        font: {
+            postScriptName: 'Montserrat-Regular',
+            size: 48,
+            allCaps: true
+        }
     }
-}))">Add Address</button>
-<button (click)="add(buildAtom('PlaceholderItem', {x: 100, y: 250}, {
-    name: 'Avatar',
-    borderWidth: 2
-}))">Add Avatar</button>
+})">Add Address</button>
+<button (click)="add({
+    type: ItemType.PlaceholderItem, 
+    itemData: {
+        location: {
+            x: 100, 
+            y: 250,
+            originX: 'left',
+            originY: 'top'
+        }, 
+        name: 'Avatar',
+        borderWidth: 1,
+        width: 300,
+        height: 300,
+        fillColor: '#eee',
+        contentResizeMode: 'fill',
+        isCoverMode: true
+    }
+})">Add Avatar</button>
 <!-- button (click)="save()">Save</button -->
 <div class="wrapper">
     <div #viewerParent class="viewer-parent"></div>
