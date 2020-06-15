@@ -2,19 +2,23 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angula
 import { Product, Surface, SafetyLine, PdfBox } from '@aurigma/design-atoms/Model/Product';
 import { SurfaceContainer } from '@aurigma/design-atoms/Model/Product';
 import { PrintArea } from '@aurigma/design-atoms/Model/Product';
-import { ImageItem, PlaceholderItem, PlainTextItem, BaseTextItem, EllipseItem } from '@aurigma/design-atoms/Model/Product/Items';
+import { ImageItem, PlaceholderItem, PlainTextItem, BaseTextItem, EllipseItem, BaseItem, BoundedTextItem, Item, RectangleItem } from '@aurigma/design-atoms/Model/Product/Items';
 import { PointF } from '@aurigma/design-atoms/Math';
-import { MockupContainer } from '@aurigma/design-atoms/Model/Product';
 import { RectangleF } from '@aurigma/design-atoms/Math';
 import { RgbColor, CmykColor, ColorFactory } from '@aurigma/design-atoms/Colors';
 import { Viewer, IOptions } from '@aurigma/design-atoms/Viewer';
 import { Configuration } from '@aurigma/design-atoms/Configuration';
-import { SelectionHandler } from '@aurigma/design-atoms/SelectionHandler';
 import { ProductsService } from '../../services/products.service';
+import { assignProperties } from '@aurigma/design-atoms/Utils/Utils';
 
 import {
   DesignBrowserComponent
 } from 'projects/cc-newapp-client/src/public-api';
+import { DesignBrowserService } from 'projects/cc-newapp-client/src/lib/design-browser/design-browser.service';
+import { CreateItemCommand, ICreateItemCommandArgs, ItemType } from '@aurigma/design-atoms/Commands/ItemsCommands/CreateItemCommand';
+import { ItemsCommand } from '@aurigma/design-atoms/Commands/CommandManager';
+import { Transform } from '@aurigma/design-atoms/Transform';
+import { HistoryUpdateMode } from '@aurigma/design-atoms/Commands/ModelUpdateCommand';
 
 
 @Component({
@@ -23,7 +27,9 @@ import {
   styleUrls: ['./embedded.component.scss']
 })
 export class EmbeddedComponent implements AfterViewInit, OnInit {
+  ItemType: typeof ItemType = ItemType;
   product: Product;
+  currentDesignId: string;
   viewer: Viewer;
   profileData = {
     'first name': 'Andrew',
@@ -35,27 +41,35 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
   @ViewChild(DesignBrowserComponent) private browser: DesignBrowserComponent;
   @ViewChild('viewerParent') viewerParent: ElementRef;
 
-  constructor(private productsService: ProductsService) {
+  constructor(private productsService: ProductsService, private designService: DesignBrowserService) {
     // this.product = this.getIframeProduct();
   }
 
-  itemClicked(clickedDesign: Product) {
-    this.product = clickedDesign;
+  async itemClicked(clickedDesignId: string) {
+    this.currentDesignId = clickedDesignId;
+    this.product = await this.browser.designService.getDesignModel(this.currentDesignId);
     this.viewer.surface = this.product.surfaces.get(0);
+
+    console.log(this.viewer.surface.getAllItems().toArray());
   }
 
   private getIframeProduct(): Product {
-    const products = Object.values(this.productsService.products)
+    const products = Object.values(this.productsService.products);
     if (products.length) {
       return products[products.length - 1];
     }
     return null;
   }
 
+  async save() {
+    await this.browser.designService.putDesignModel(this.currentDesignId, this.product);
+    await this.browser.refresh();
+  }
+
   populate(data: any) {
 
     // If you compare it with the populate() in cciframe.component, you will
-    // notice that it is almost completely copy-pasted from there. 
+    // notice that it is almost completely copy-pasted from there.
     this.product
       .getAllItems()
       .forEach(async (x) => {
@@ -76,6 +90,21 @@ export class EmbeddedComponent implements AfterViewInit, OnInit {
         }
       });
 
+  }
+
+  private async buildAtom(props: ICreateItemCommandArgs): Promise<Item> {
+    return this.viewer.commandManager.execute(ItemsCommand.createItem, props, HistoryUpdateMode.Update);
+  }
+
+  async add(props: ICreateItemCommandArgs) {
+    const item = await this.buildAtom(props);
+    this
+      .viewer
+      .surface
+      .containers
+      .first(x => x.name === Configuration.MAIN_CONTAINER_NAME)
+      .items
+      .add(item);
   }
 
   private initProduct() {

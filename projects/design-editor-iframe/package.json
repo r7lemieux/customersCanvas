@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^10.0.0-next.8",
-    "@aurigma/design-editor-iframe": "^5.27.0",
+    "@aurigma/design-editor-iframe": "^5.28.1",
     "ramda": "^0.27.0",
     "tslib": "^1.12.0",
     "tsmonad": "^0.8.0",
