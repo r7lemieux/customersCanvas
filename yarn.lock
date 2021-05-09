@@ -243,10 +243,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@aurigma/design-atoms@5.25.0":
-  version "5.25.0"
-  resolved "https://registry.npmjs.org/@aurigma/design-atoms/-/design-atoms-5.25.0.tgz#522836ea22f9ee1fd0f522dfe68ca865dd66734d"
-  integrity sha512-UL4LfpPJ1W5uYQynAblbUiC2DCDmfyU8Utk/SYjBaLLKly3M4Oj5TkBpIYOkuQmo+E3j/vhtRrRw0SFmgJqs4w==
+"@aurigma/design-atoms-model@5.33.2":
+  version "5.33.2"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms-model/-/design-atoms-model-5.33.2.tgz#49df2f28af29a26fd00a666d077eeec3d3d4fa53"
+  integrity sha512-ZPmR+HUiyrbQ3SMNz4dD5xERpsMLfg54TghlnpSS52daokw8TPPfUqkp6GzYetLVcnQNRGNnAUO0SKkFKZEUsA==
   dependencies:
     "@types/underscore" "1.8.3"
     clone "2.1.1"
@@ -256,6 +256,29 @@
     lodash "4.17.15"
     underscore "1.8.3"
     vcard-parser "^1.0.0"
+
+"@aurigma/design-atoms@5.35.6", "@aurigma/design-atoms@^5.28.1":
+  version "5.35.6"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms/-/design-atoms-5.35.6.tgz#80c519e8de6249f56a0718a8d8781705ea367774"
+  integrity sha512-4J+GUx321uGZhQ71hTlL0VEYaZSsdz/1EfrQ6wy7XqXz8UpOiP8abNX7DMmjF0AjQMbyDaR4mFTJTIH0NuXRAA==
+  dependencies:
+    "@aurigma/design-atoms-model" "5.33.2"
+    clone "2.1.1"
+    json-cycle "1.3.0"
+    linq "3.2.1"
+    linq-iterator "3.0.5"
+    lodash "4.17.15"
+    tsmonad "^0.8.0"
+    underscore "1.8.3"
+    vcard-parser "^1.0.0"
+
+"@aurigma/design-editor-iframe@^5.28.1":
+  version "5.35.6"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-editor-iframe/-/design-editor-iframe-5.35.6.tgz#be9852228f21cc8ec5251787bcfe9121ad2a440a"
+  integrity sha512-uDBGTwz1iTC+7Y0CvP1VjQRbMei4rPC7izucjxfhp5wPB3UZQH8TPIhNaelsiypHfTX8pG/Eq5QasqY85xwyfw==
+  dependencies:
+    "@aurigma/design-atoms" "5.35.6"
+    "@aurigma/design-atoms-model" "5.33.2"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
@@ -7176,9 +7199,9 @@ querystring@0.2.0:
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
 querystringify@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
-  integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
+  integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
 ramda@^0.27.0:
   version "0.27.0"
@@ -7469,7 +7492,7 @@ require-main-filename@^2.0.0:
 
 requires-port@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+  resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
 resolve-cwd@^2.0.0:
@@ -8934,9 +8957,9 @@ url-parse-lax@^3.0.0:
     prepend-http "^2.0.0"
 
 url-parse@^1.4.3:
-  version "1.4.7"
-  resolved "https://registry.npmjs.org/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.1.tgz#d5fa9890af8a5e1f274a2c98376510f6425f6e3b"
+  integrity sha512-HOfCOUJt7iSYzEx/UqgtwKRMC6EU91NFhsCHMv9oM03VJcVo2Qrp8T8kI9D7amFf1cu+/3CEhgb3rF9zL7k85Q==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
