@@ -243,10 +243,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@aurigma/design-atoms@5.25.0":
-  version "5.25.0"
-  resolved "https://registry.npmjs.org/@aurigma/design-atoms/-/design-atoms-5.25.0.tgz#522836ea22f9ee1fd0f522dfe68ca865dd66734d"
-  integrity sha512-UL4LfpPJ1W5uYQynAblbUiC2DCDmfyU8Utk/SYjBaLLKly3M4Oj5TkBpIYOkuQmo+E3j/vhtRrRw0SFmgJqs4w==
+"@aurigma/design-atoms-model@5.33.5":
+  version "5.33.5"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms-model/-/design-atoms-model-5.33.5.tgz#948edc64076b8b405704588bd819d990ac2b29c8"
+  integrity sha512-eC5XIVNi/rQd61GKmfxIn4xL90W2sVwSdb5JHCCjZ1R4iTTAgKAGV0Il4srdnbcEvPKEAPtroiDBI3klNEJ2sg==
   dependencies:
     "@types/underscore" "1.8.3"
     clone "2.1.1"
@@ -256,6 +256,29 @@
     lodash "4.17.15"
     underscore "1.8.3"
     vcard-parser "^1.0.0"
+
+"@aurigma/design-atoms@5.35.9", "@aurigma/design-atoms@^5.28.1":
+  version "5.35.9"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms/-/design-atoms-5.35.9.tgz#8e5e3a6dbb7a62c6bb0b6784d77f99ba50fd3176"
+  integrity sha512-64jSZ2vAg61POGgbxCjziW2hQhslQJARS212ZZ2kwXM1jC1wfr3CnTmkdo6/khfGxmFZy2gr98eLflclDjj43Q==
+  dependencies:
+    "@aurigma/design-atoms-model" "5.33.5"
+    clone "2.1.1"
+    json-cycle "1.3.0"
+    linq "3.2.1"
+    linq-iterator "3.0.5"
+    lodash "4.17.15"
+    tsmonad "^0.8.0"
+    underscore "1.8.3"
+    vcard-parser "^1.0.0"
+
+"@aurigma/design-editor-iframe@^5.28.1":
+  version "5.35.9"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-editor-iframe/-/design-editor-iframe-5.35.9.tgz#e0fdbb6c6aeb849d2b775b5b149080d55e4032c6"
+  integrity sha512-zXTsTmeCGlBnHZk8ZGyMXprnfEfJSiyFm9CHnZkwFCR1ZSWSNL6IxANia84v6AJKUJLNLJ5yI+DUWoYrUN1LdQ==
+  dependencies:
+    "@aurigma/design-atoms" "5.35.9"
+    "@aurigma/design-atoms-model" "5.33.5"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
@@ -2296,7 +2319,7 @@ chokidar@^2.1.8:
 
 chownr@^1.1.1, chownr@^1.1.2:
   version "1.1.4"
-  resolved "https://registry.npmjs.org/chownr/-/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"
+  resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"
   integrity sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==
 
 chownr@^2.0.0:
@@ -3942,7 +3965,7 @@ fs-extra@^9.0.0:
 
 fs-minipass@^1.2.5:
   version "1.2.7"
-  resolved "https://registry.npmjs.org/fs-minipass/-/fs-minipass-1.2.7.tgz#ccff8570841e7fe4265693da88936c55aed7f7c7"
+  resolved "https://registry.yarnpkg.com/fs-minipass/-/fs-minipass-1.2.7.tgz#ccff8570841e7fe4265693da88936c55aed7f7c7"
   integrity sha512-GWSSJGFy4e9GUeCcbIkED+bgAoFyj7XF1mV8rma3QW4NIqX9Kyx79N/PF61H5udOV3aY1IaMLs6pGbH71nlCTA==
   dependencies:
     minipass "^2.6.0"
@@ -5679,7 +5702,7 @@ minimatch@3.0.4, minimatch@^3.0.4:
 
 minimist@^1.2.0, minimist@^1.2.5:
   version "1.2.5"
-  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
 minipass-collect@^1.0.2:
@@ -5720,7 +5743,7 @@ minipass@^3.0.0, minipass@^3.1.1:
 
 minizlib@^1.2.1:
   version "1.3.3"
-  resolved "https://registry.npmjs.org/minizlib/-/minizlib-1.3.3.tgz#2290de96818a34c29551c8a8d301216bd65a861d"
+  resolved "https://registry.yarnpkg.com/minizlib/-/minizlib-1.3.3.tgz#2290de96818a34c29551c8a8d301216bd65a861d"
   integrity sha512-6ZYMOEnmVsdCeTJVE0W9ZD+pVnE8h9Hma/iOwwRDsdQoePpoX56/8B6z3P9VNwppJuBKNRuFDRNRqRWexT9G9Q==
   dependencies:
     minipass "^2.9.0"
@@ -7640,7 +7663,7 @@ safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
 
 safe-buffer@>=5.1.0, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@^5.2.0, safe-buffer@~5.2.0:
   version "5.2.1"
-  resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
 
 safe-regex@^1.1.0:
@@ -8461,9 +8484,9 @@ tapable@^1.0.0, tapable@^1.1.3:
   integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
 
 tar@^4.4.10:
-  version "4.4.13"
-  resolved "https://registry.npmjs.org/tar/-/tar-4.4.13.tgz#43b364bc52888d555298637b10d60790254ab525"
-  integrity sha512-w2VwSrBoHa5BsSyH+KxEqeQBAllHhccyMFVHtGtdMpF4W7IRWfZjFiQceJPChOeTsSDVUpER2T8FA93pr0L+QA==
+  version "4.4.15"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.15.tgz#3caced4f39ebd46ddda4d6203d48493a919697f8"
+  integrity sha512-ItbufpujXkry7bHH9NpQyTXPbJ72iTlXgkBAYsAjDXk3Ds8t/3NfO5P4xZGy7u+sYuQUbimgzswX4uQIEeNVOA==
   dependencies:
     chownr "^1.1.1"
     fs-minipass "^1.2.5"
