@@ -243,10 +243,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@aurigma/design-atoms@5.25.0":
-  version "5.25.0"
-  resolved "https://registry.npmjs.org/@aurigma/design-atoms/-/design-atoms-5.25.0.tgz#522836ea22f9ee1fd0f522dfe68ca865dd66734d"
-  integrity sha512-UL4LfpPJ1W5uYQynAblbUiC2DCDmfyU8Utk/SYjBaLLKly3M4Oj5TkBpIYOkuQmo+E3j/vhtRrRw0SFmgJqs4w==
+"@aurigma/design-atoms-model@5.33.8":
+  version "5.33.8"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms-model/-/design-atoms-model-5.33.8.tgz#8aa00d6ff9ad8728f0135642105e5530faeab883"
+  integrity sha512-Su5gZy5TtQ2gb7Zdv0pGCuFKCXJeZKlEHto/+HuwF84jTVguJGP8ScIX2IZjLRKsKR4nayNTByPrpr6I8a3xTw==
   dependencies:
     "@types/underscore" "1.8.3"
     clone "2.1.1"
@@ -256,6 +256,29 @@
     lodash "4.17.15"
     underscore "1.8.3"
     vcard-parser "^1.0.0"
+
+"@aurigma/design-atoms@5.35.13", "@aurigma/design-atoms@^5.28.1":
+  version "5.35.13"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms/-/design-atoms-5.35.13.tgz#f78dc3828f32ff2365284770762cb139f821ca2c"
+  integrity sha512-G+Shs5bkv3bKgnKngg8NboqXXbKhJfGESGTaz+R5MxETD85CM/LgfjI3TigmpeRBHTvDC0TfTLrTnmKPyZO89Q==
+  dependencies:
+    "@aurigma/design-atoms-model" "5.33.8"
+    clone "2.1.1"
+    json-cycle "1.3.0"
+    linq "3.2.1"
+    linq-iterator "3.0.5"
+    lodash "4.17.15"
+    tsmonad "^0.8.0"
+    underscore "1.8.3"
+    vcard-parser "^1.0.0"
+
+"@aurigma/design-editor-iframe@^5.28.1":
+  version "5.35.13"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-editor-iframe/-/design-editor-iframe-5.35.13.tgz#86355f42eb57ea5ace115b05a7f07e2f70be7007"
+  integrity sha512-qsv3RUyEOr/rVRMjaYac2vw7cC1WW6pxC3OpRUyukSq27W9zTtfhYzpQhXSs/Q16okSZ1TUb2c37N7pK5n8tig==
+  dependencies:
+    "@aurigma/design-atoms" "5.35.13"
+    "@aurigma/design-atoms-model" "5.33.8"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
@@ -3862,11 +3885,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.11.0"
-  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.11.0.tgz#afa14f08ba12a52963140fe43212658897bc0ecb"
-  integrity sha512-KZm0V+ll8PfBrKwMzdo5D13b1bur9Iq9Zd/RMmAoQQcl2PxxFml8cxXPaaPYVbV0RjNjq1CU7zIzAOqtUPudmA==
-  dependencies:
-    debug "^3.0.0"
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 for-in@^1.0.2:
   version "1.0.2"
