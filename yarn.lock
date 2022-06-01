@@ -243,10 +243,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@aurigma/design-atoms@5.25.0":
-  version "5.25.0"
-  resolved "https://registry.npmjs.org/@aurigma/design-atoms/-/design-atoms-5.25.0.tgz#522836ea22f9ee1fd0f522dfe68ca865dd66734d"
-  integrity sha512-UL4LfpPJ1W5uYQynAblbUiC2DCDmfyU8Utk/SYjBaLLKly3M4Oj5TkBpIYOkuQmo+E3j/vhtRrRw0SFmgJqs4w==
+"@aurigma/design-atoms-model@5.33.8":
+  version "5.33.8"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms-model/-/design-atoms-model-5.33.8.tgz#8aa00d6ff9ad8728f0135642105e5530faeab883"
+  integrity sha512-Su5gZy5TtQ2gb7Zdv0pGCuFKCXJeZKlEHto/+HuwF84jTVguJGP8ScIX2IZjLRKsKR4nayNTByPrpr6I8a3xTw==
   dependencies:
     "@types/underscore" "1.8.3"
     clone "2.1.1"
@@ -256,6 +256,29 @@
     lodash "4.17.15"
     underscore "1.8.3"
     vcard-parser "^1.0.0"
+
+"@aurigma/design-atoms@5.35.16", "@aurigma/design-atoms@^5.28.1":
+  version "5.35.16"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms/-/design-atoms-5.35.16.tgz#92de04581d517c3ac1528ed3e896b317de3a87f3"
+  integrity sha512-rquttc41EyjnQo8FnLTVXruPcHWmM1O95wNs93bpMnDpQR1uu6GL7J+J3iMlS5HOWueq24TWE/KFSfP1OHt/nw==
+  dependencies:
+    "@aurigma/design-atoms-model" "5.33.8"
+    clone "2.1.1"
+    json-cycle "1.3.0"
+    linq "3.2.1"
+    linq-iterator "3.0.5"
+    lodash "4.17.15"
+    tsmonad "^0.8.0"
+    underscore "1.8.3"
+    vcard-parser "^1.0.0"
+
+"@aurigma/design-editor-iframe@^5.28.1":
+  version "5.35.16"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-editor-iframe/-/design-editor-iframe-5.35.16.tgz#572fdf7d15c12343386748fa8aa9631eb462efca"
+  integrity sha512-pnnkZiQM0TIeNW6OOGUOZHLOntTmZuRZHHwA5ZOkg8vbT5Fp5yZUNsaaoMGsUPOxDJ5DEgV17SwxbHnh7FPZUg==
+  dependencies:
+    "@aurigma/design-atoms" "5.35.16"
+    "@aurigma/design-atoms-model" "5.33.8"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
@@ -3578,9 +3601,9 @@ events@^3.0.0:
   integrity sha512-Rv+u8MLHNOdMjTAFeT3nCjHn2aGlx435FP/sDHNaRhDEMwyI/aB22Kj2qIN8R0cw3z28psEQLYwxVKLsKrMgWg==
 
 eventsource@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/eventsource/-/eventsource-1.0.7.tgz#8fbc72c93fcd34088090bc0a4e64f4b5cee6d8d0"
-  integrity sha512-4Ln17+vVT0k8aWq+t/bF5arcS3EpT9gYtW66EPacdj/mAFevznsnyoHLPy2BA8gbIQeIHoPsvwmfBftfcG//BQ==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/eventsource/-/eventsource-1.1.1.tgz#4544a35a57d7120fba4fa4c86cb4023b2c09df2f"
+  integrity sha512-qV5ZC0h7jYIAOhArFJgSfdyz6rALJyb270714o7ZtNnw2WSJ+eexhKtE0O8LYPRsHZHf2osHKZBxGPvm3kPkCA==
   dependencies:
     original "^1.0.0"
 
@@ -6245,7 +6268,7 @@ ora@4.0.4:
 
 original@^1.0.0:
   version "1.0.2"
-  resolved "https://registry.npmjs.org/original/-/original-1.0.2.tgz#e442a61cffe1c5fd20a65f3261c26663b303f25f"
+  resolved "https://registry.yarnpkg.com/original/-/original-1.0.2.tgz#e442a61cffe1c5fd20a65f3261c26663b303f25f"
   integrity sha512-hyBVl6iqqUOJ8FqRe+l/gS8H+kKYjrEndd5Pm1MfBtsEKA038HkkdbAl/72EAXGyonD/PFsvmVG+EvcIpliMBg==
   dependencies:
     url-parse "^1.4.3"
@@ -7176,9 +7199,9 @@ querystring@0.2.0:
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
 querystringify@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
-  integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
+  integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
 ramda@^0.27.0:
   version "0.27.0"
@@ -7469,7 +7492,7 @@ require-main-filename@^2.0.0:
 
 requires-port@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+  resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
 resolve-cwd@^2.0.0:
@@ -8934,9 +8957,9 @@ url-parse-lax@^3.0.0:
     prepend-http "^2.0.0"
 
 url-parse@^1.4.3:
-  version "1.4.7"
-  resolved "https://registry.npmjs.org/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.10.tgz#9d3c2f736c1d75dd3bd2be507dcc111f1e2ea9c1"
+  integrity sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
