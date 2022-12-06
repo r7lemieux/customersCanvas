@@ -243,10 +243,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@aurigma/design-atoms@5.25.0":
-  version "5.25.0"
-  resolved "https://registry.npmjs.org/@aurigma/design-atoms/-/design-atoms-5.25.0.tgz#522836ea22f9ee1fd0f522dfe68ca865dd66734d"
-  integrity sha512-UL4LfpPJ1W5uYQynAblbUiC2DCDmfyU8Utk/SYjBaLLKly3M4Oj5TkBpIYOkuQmo+E3j/vhtRrRw0SFmgJqs4w==
+"@aurigma/design-atoms-model@5.33.8":
+  version "5.33.8"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms-model/-/design-atoms-model-5.33.8.tgz#8aa00d6ff9ad8728f0135642105e5530faeab883"
+  integrity sha512-Su5gZy5TtQ2gb7Zdv0pGCuFKCXJeZKlEHto/+HuwF84jTVguJGP8ScIX2IZjLRKsKR4nayNTByPrpr6I8a3xTw==
   dependencies:
     "@types/underscore" "1.8.3"
     clone "2.1.1"
@@ -256,6 +256,29 @@
     lodash "4.17.15"
     underscore "1.8.3"
     vcard-parser "^1.0.0"
+
+"@aurigma/design-atoms@5.35.16", "@aurigma/design-atoms@^5.28.1":
+  version "5.35.16"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-atoms/-/design-atoms-5.35.16.tgz#92de04581d517c3ac1528ed3e896b317de3a87f3"
+  integrity sha512-rquttc41EyjnQo8FnLTVXruPcHWmM1O95wNs93bpMnDpQR1uu6GL7J+J3iMlS5HOWueq24TWE/KFSfP1OHt/nw==
+  dependencies:
+    "@aurigma/design-atoms-model" "5.33.8"
+    clone "2.1.1"
+    json-cycle "1.3.0"
+    linq "3.2.1"
+    linq-iterator "3.0.5"
+    lodash "4.17.15"
+    tsmonad "^0.8.0"
+    underscore "1.8.3"
+    vcard-parser "^1.0.0"
+
+"@aurigma/design-editor-iframe@^5.28.1":
+  version "5.35.16"
+  resolved "https://registry.yarnpkg.com/@aurigma/design-editor-iframe/-/design-editor-iframe-5.35.16.tgz#572fdf7d15c12343386748fa8aa9631eb462efca"
+  integrity sha512-pnnkZiQM0TIeNW6OOGUOZHLOntTmZuRZHHwA5ZOkg8vbT5Fp5yZUNsaaoMGsUPOxDJ5DEgV17SwxbHnh7FPZUg==
+  dependencies:
+    "@aurigma/design-atoms" "5.35.16"
+    "@aurigma/design-atoms-model" "5.33.8"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
@@ -3047,9 +3070,9 @@ decamelize@^1.2.0:
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 decompress-response@^3.3.0:
   version "3.3.0"
